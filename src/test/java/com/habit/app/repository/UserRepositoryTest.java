@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -41,7 +40,7 @@ public class UserRepositoryTest {
         user.setEmail("emai@lk.com");
 
         this.userRole = new UserRole();
-        userRole.setRoleName(RoleName.USER);
+        userRole.setRoleName(RoleName.ROLE_USER);
         userRole.setUser(user);
 
         Set<UserRole> roles = new HashSet<>();

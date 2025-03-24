@@ -35,7 +35,7 @@ public class UserRoleRepositoryTest {
         user.setEmail("email@example.com");
 
         this.userRole = new UserRole();
-        userRole.setRoleName(RoleName.USER);
+        userRole.setRoleName(RoleName.ROLE_USER);
         userRole.setUser(user);
 
         Set<UserRole> roles = new HashSet<>();
@@ -60,10 +60,10 @@ public class UserRoleRepositoryTest {
     @Transactional
     @Rollback
     @DisplayName("Test - Find User Roles By Role Name")
-    public void testFindUserRolesByRoleName() {
-        List<UserRole> userRoles = userRoleRepository.findUserRoleByRoleName(RoleName.USER);
-        assertThat(userRoles).withFailMessage("UserRoles list should not be empty").isNotEmpty();
-        assertThat(userRoles.get(0).getUser().getUsername())
+    public void testFindByRoleName() {
+        List<User> users = userRoleRepository.findByRoleName(RoleName.ROLE_USER);
+        assertThat(users).withFailMessage("UserRoles list should not be empty").isNotEmpty();
+        assertThat(users.get(0).getUsername())
                 .withFailMessage("Username of the first UserRole should be 'testuser'").isEqualTo("testuser");
     }
 
@@ -72,9 +72,9 @@ public class UserRoleRepositoryTest {
     @Rollback
     @DisplayName("Test - Update User Role")
     public void testUpdateUserRole() {
-        userRole.setRoleName(RoleName.ADMIN);
+        userRole.setRoleName(RoleName.ROLE_ADMIN);
         userRole = userRoleRepository.save(userRole);
-        assertThat(userRole.getRoleName()).withFailMessage("UserRole should be updated to ADMIN").isEqualTo(RoleName.ADMIN);
+        assertThat(userRole.getRoleName()).withFailMessage("UserRole should be updated to ROLE_ADMIN").isEqualTo(RoleName.ROLE_ADMIN);
 
         User updatedUser = userRepository.findById(user.getId()).orElse(null);
         assertThat(updatedUser).withFailMessage("Updated User should not be null").isNotNull();

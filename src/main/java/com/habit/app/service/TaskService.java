@@ -50,33 +50,8 @@ public class TaskService {
         Task task = modelMapper.map(taskDTO, Task.class);
         task.setUser(userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found")));
-        task.setCreatedAt(LocalDateTime.now());
         Task savedTask = taskRepository.save(task);
         return modelMapper.map(savedTask, TaskDTO.class);
-    }
-    @Transactional
-    public void checkAndCreateRepeatingTasks() {
-        List<Task> tasks = taskRepository.findAll();
-
-        for (Task task : tasks) {
-            if (task.isRepeating()) {
-                LocalDateTime now = LocalDateTime.now();
-                LocalDateTime nextRepeat = task.getDueDate().plusDays(task.getRepeatInterval());
-
-                if (now.isAfter(nextRepeat)) {
-                    Task newTask = modelMapper.map(task, Task.class);
-
-                    newTask.setId(null); // Reset ID to ensure a new entity is created
-                    newTask.setDueDate(nextRepeat.withHour(task.getRepeatTime().getHour()).withMinute(task.getRepeatTime().getMinute()));
-                    newTask.setCreatedAt(LocalDateTime.now());
-
-                    taskRepository.save(newTask);
-
-                    task.setDueDate(nextRepeat);
-                    taskRepository.save(task);
-                }
-            }
-        }
     }
 
     @Transactional
@@ -84,8 +59,6 @@ public class TaskService {
         Task existingTask = taskRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Task not found"));
         existingTask.setName(taskDTO.getName());
-        existingTask.setDueDate(taskDTO.getDueDate());
-        existingTask.setStatus(taskDTO.getStatus());
         existingTask.setPriority(taskDTO.getPriority());
         Task updatedTask = taskRepository.save(existingTask);
         return modelMapper.map(updatedTask, TaskDTO.class);

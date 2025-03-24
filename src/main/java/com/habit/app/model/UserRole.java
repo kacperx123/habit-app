@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Entity
 @Getter
 @Setter
-@Table(name = "user_roles")
+@Table(name = "user_role")
 public class UserRole implements Serializable {
 
     @Id
@@ -24,4 +24,5 @@ public class UserRole implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "role_name", nullable = false)
     private RoleName roleName;
+
 }

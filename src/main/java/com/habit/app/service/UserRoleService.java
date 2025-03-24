@@ -38,7 +38,7 @@ public class UserRoleService {
         return modelMapper.map(role, UserRoleDTO.class);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Transactional
     public UserRoleDTO createRole(UserRoleDTO roleDTO) {
         UserRole role = modelMapper.map(roleDTO, UserRole.class);
@@ -46,7 +46,7 @@ public class UserRoleService {
         return modelMapper.map(savedRole, UserRoleDTO.class);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Transactional
     public UserRoleDTO updateRole(Long id, UserRoleDTO roleDTO) {
         UserRole existingRole = roleRepository.findById(id)
@@ -56,7 +56,7 @@ public class UserRoleService {
         return modelMapper.map(updatedRole, UserRoleDTO.class);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Transactional
     public void deleteRole(Long id) {
         UserRole role = roleRepository.findById(id)

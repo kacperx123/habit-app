@@ -1,0 +1,143 @@
+/* General Styles */
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    color: #333;
+    padding: 20px;
+    min-height: 100vh;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2196F3;
+    color: white;
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 1rem;
+    transition: opacity 0.3s;
+}
+
+header nav a:hover {
+    opacity: 0.8;
+}
+
+main {
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Section for task columns */
+section {
+    width: 100%;
+}
+
+.task-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Task Columns */
+.task-column {
+    flex: 1;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.task-column h2 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #2196F3;
+}
+
+/* Task Styles */
+.task {
+    list-style: none;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.task:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Priority Colors */
+.high-priority {
+    background-color: #ffcccc;
+}
+
+.medium-priority {
+    background-color: #fffacd;
+}
+
+.low-priority {
+    background-color: #add8e6;
+}
+
+.everyday-task {
+    background-color: #e0f7fa;
+}
+
+.project-task {
+    background-color: #f3e5f5;
+}
+
+/* Add New Task Section */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+form input, form select, form button {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 300px;
+}
+
+form button {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #45a049;
+}

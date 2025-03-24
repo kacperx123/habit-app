@@ -1,6 +1,6 @@
 package com.habit.app.enums;
 
 public enum RoleName {
-    USER,
-    ADMIN
+    ROLE_USER,
+    ROLE_ADMIN
 }

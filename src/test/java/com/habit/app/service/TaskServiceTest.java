@@ -2,7 +2,6 @@ package com.habit.app.service;
 
 import com.habit.app.dto.TaskDTO;
 import com.habit.app.enums.TaskPriority;
-import com.habit.app.enums.TaskStatus;
 import com.habit.app.model.Task;
 import com.habit.app.model.User;
 import com.habit.app.repository.TaskRepository;
@@ -54,17 +53,13 @@ public class TaskServiceTest {
         task.setId(1L);
         task.setName("Test Task");
         task.setUser(user);
-        task.setCreatedAt(LocalDateTime.now());
-        task.setDueDate(LocalDateTime.now().plusDays(1));
         task.setPriority(TaskPriority.HIGH);
-        task.setStatus(TaskStatus.PENDING);
 
         taskDTO = new TaskDTO();
         taskDTO.setId(1L);
         taskDTO.setName("Test Task");
-        taskDTO.setDueDate(LocalDateTime.now().plusDays(1));
         taskDTO.setPriority(TaskPriority.HIGH);
-        taskDTO.setStatus(TaskStatus.PENDING);
+
     }
 
     @Test

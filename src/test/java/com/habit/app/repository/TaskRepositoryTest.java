@@ -1,7 +1,6 @@
 package com.habit.app.repository;
 import com.habit.app.enums.RoleName;
 import com.habit.app.enums.TaskPriority;
-import com.habit.app.enums.TaskStatus;
 import com.habit.app.model.Task;
 import com.habit.app.model.User;
 import com.habit.app.model.UserRole;
@@ -12,7 +11,6 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -42,7 +40,7 @@ public class TaskRepositoryTest {
         testReporter.publishEntry("Starting test " + testInfo.getDisplayName() + " with tags " + testInfo.getTags());
 
         UserRole userRole = new UserRole();
-        userRole.setRoleName(RoleName.USER);
+        userRole.setRoleName(RoleName.ROLE_USER);
 
 
         Set<UserRole> roles = new HashSet<>();
@@ -61,11 +59,7 @@ public class TaskRepositoryTest {
 
         this.task = new Task();
         task.setName("Test Task");
-        task.setDescription("This is a test task");
-        task.setStatus(TaskStatus.PENDING);
         task.setPriority(TaskPriority.MEDIUM);
-        task.setRepeating(false);
-        task.setCreatedAt(LocalDateTime.now());
         task.setUser(user);
     }
 
@@ -78,7 +72,7 @@ public class TaskRepositoryTest {
         assertThat(task.getId()).isNotNull();
         assertThat(task.getUser()).isNotNull();
         assertThat(task.getUser().getUserRoles()).isNotEmpty();
-        assertThat(task.getUser().getUserRoles().iterator().next().getRoleName()).isEqualTo(RoleName.USER);
+        assertThat(task.getUser().getUserRoles().iterator().next().getRoleName()).isEqualTo(RoleName.ROLE_USER);
     }
 
     @Test

@@ -9,7 +9,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
-import org.junit.runner.manipulation.Ordering;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -17,8 +16,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.context.support.WithSecurityContext;
-import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -51,11 +48,11 @@ public class UserRoleServiceTest {
     void setUp() {
         userRole = new UserRole();
         userRole.setId(1L);
-        userRole.setRoleName(RoleName.USER);
+        userRole.setRoleName(RoleName.ROLE_USER);
 
         userRoleDTO = new UserRoleDTO();
         userRoleDTO.setId(1L);
-        userRoleDTO.setRoleName(RoleName.USER);
+        userRoleDTO.setRoleName(RoleName.ROLE_USER);
     }
 
     @Test
@@ -67,7 +64,7 @@ public class UserRoleServiceTest {
         List<UserRoleDTO> roles = userRoleService.getAllRoles();
 
         assertThat(roles).hasSize(1);
-        assertThat(roles.get(0).getRoleName()).isEqualTo(RoleName.USER);
+        assertThat(roles.get(0).getRoleName()).isEqualTo(RoleName.ROLE_USER);
         verify(roleRepository, times(1)).findAll();
     }
 
@@ -80,7 +77,7 @@ public class UserRoleServiceTest {
         UserRoleDTO foundRole = userRoleService.getRoleById(1L);
 
         assertThat(foundRole).isNotNull();
-        assertThat(foundRole.getRoleName()).isEqualTo(RoleName.USER);
+        assertThat(foundRole.getRoleName()).isEqualTo(RoleName.ROLE_USER);
         verify(roleRepository, times(1)).findById(1L);
     }
 
@@ -98,7 +95,7 @@ public class UserRoleServiceTest {
     }
 
     @Test
-    @WithMockUser(roles = "ADMIN")
+    @WithMockUser(roles = "ROLE_ADMIN")
     @DisplayName("Test - Create Role as Admin")
     void testCreateRole_AsAdmin() {
         when(modelMapper.map(any(UserRoleDTO.class), eq(UserRole.class))).thenReturn(userRole);
@@ -108,31 +105,31 @@ public class UserRoleServiceTest {
         UserRoleDTO createdRole = userRoleService.createRole(userRoleDTO);
 
         assertThat(createdRole).isNotNull();
-        assertThat(createdRole.getRoleName()).isEqualTo(RoleName.USER);
+        assertThat(createdRole.getRoleName()).isEqualTo(RoleName.ROLE_USER);
         verify(roleRepository, times(1)).save(any(UserRole.class));
     }
 
 
     @Test
-    @WithMockUser(roles = "ADMIN")
+    @WithMockUser(roles = "ROLE_ADMIN")
     @DisplayName("Test - Update Role as Admin")
     void testUpdateRole_AsAdmin() {
         when(roleRepository.findById(1L)).thenReturn(Optional.of(userRole));
         when(roleRepository.save(any(UserRole.class))).thenReturn(userRole);
         when(modelMapper.map(any(UserRole.class), eq(UserRoleDTO.class))).thenReturn(userRoleDTO);
 
-        userRoleDTO.setRoleName(RoleName.ADMIN);
+        userRoleDTO.setRoleName(RoleName.ROLE_ADMIN);
         UserRoleDTO updatedRole = userRoleService.updateRole(1L, userRoleDTO);
 
         assertThat(updatedRole).isNotNull();
-        assertThat(updatedRole.getRoleName()).isEqualTo(RoleName.ADMIN);
+        assertThat(updatedRole.getRoleName()).isEqualTo(RoleName.ROLE_ADMIN);
         verify(roleRepository, times(1)).findById(1L);
         verify(roleRepository, times(1)).save(any(UserRole.class));
     }
 
 
     @Test
-    @WithMockUser(roles = "ADMIN")
+    @WithMockUser(roles = "ROLE_ADMIN")
     @DisplayName("Test - Delete Role as Admin")
     void testDeleteRole_AsAdmin() {
         when(roleRepository.findById(1L)).thenReturn(Optional.of(userRole));

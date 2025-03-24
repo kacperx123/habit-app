@@ -16,8 +16,5 @@ public class TaskScheduler {
         this.taskService = taskService;
     }
 
-    @Scheduled(cron = "0 0 * * * *") // co godzinę
-    public void scheduleRepeatingTasks() {
-        taskService.checkAndCreateRepeatingTasks();
-    }
+
 }
